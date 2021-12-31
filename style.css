@@ -1,0 +1,152 @@
+:root {
+  font-size: 16px;
+  --numero: #2274a5;
+  --operador: #253c78;
+  --igual: #f75c03;
+  --operador-del: #d90368;
+  --numero-hv: hsl(202, 66%, 50%);
+  --operador-hv: hsl(223, 53%, 40%);
+  --igual-hv: hsl(22, 98%, 60%);
+  --operador-del-hv: hsl(332, 97%, 53%);
+  --fundo: rgba(238, 238, 238, 0.7);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: radial-gradient(
+    circle,
+    rgba(90, 195, 242, 1) 0%,
+    rgba(73, 227, 245, 1) 100%
+  );
+  gap: 1rem;
+}
+
+button {
+  padding: 1rem;
+  border: none;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  color: #fff;
+  transition: 0.2s background;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  gap: 0.5rem;
+  background: var(--fundo);
+}
+
+.display {
+  background: #fff;
+  padding: 1rem;
+  font-size: 2.2rem;
+  text-align: right;
+  border-radius: 0.5rem;
+}
+
+.botoes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-radius: 0.5rem;
+  gap: 0.5rem;
+}
+
+.operador {
+  background: var(--operador);
+}
+
+.operador:hover {
+  background: var(--operador-hv);
+}
+
+.operador:active {
+  color: var(--operador);
+  background: #fff;
+}
+
+.num {
+  background: var(--numero);
+}
+
+.num:hover {
+  background: var(--numero-hv);
+}
+
+.num:active {
+  color: var(--numero);
+  background: #fff;
+}
+
+.operador.limpar {
+  background: var(--operador-del);
+}
+
+.operador.limpar:hover {
+  background: var(--operador-del-hv);
+}
+
+.operador.limpar:active {
+  color: var(--operador-del);
+  background: #fff;
+}
+
+.operador.igual {
+  background: var(--igual);
+}
+
+.operador.igual:hover {
+  background: var(--igual-hv);
+}
+
+.operador.igual:active {
+  color: var(--igual);
+  background: #fff;
+}
+
+#zero,
+#limpar {
+  grid-column: 1/3;
+}
+
+#del {
+  grid-column: 3/5;
+}
+
+#igual {
+  grid-column-start: 4;
+  grid-row: 5/7;
+}
+
+footer {
+  background: var(--fundo);
+  padding: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
