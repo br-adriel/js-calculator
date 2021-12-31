@@ -146,6 +146,24 @@ main {
 
 footer {
   background: var(--fundo);
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem 0.5rem 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+footer div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+footer a {
+  color: #000;
+  font-size: 1.2rem;
+}
+
+footer a:hover {
+  color: #222;
 }
