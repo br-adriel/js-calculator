@@ -131,13 +131,12 @@ main {
   background: #fff;
 }
 
-#zero,
-#limpar {
+#zero {
   grid-column: 1/3;
 }
 
-#del {
-  grid-column: 3/5;
+#limpar {
+  grid-column: 2/4;
 }
 
 #igual {
