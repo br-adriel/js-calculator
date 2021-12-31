@@ -15,6 +15,14 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
     <title>Calculadora</title>
   </head>
   <body>
@@ -22,26 +30,45 @@
       <section class="calculator">
         <p class="display" id="display">0</p>
         <div class="botoes">
+          <button class="operador" id="raiz">
+            <i class="fas fa-square-root-alt"></i>
+          </button>
           <button class="operador limpar" id="limpar">CLEAR</button>
-          <button class="operador limpar" id="del">DEL</button>
-          <button class="operador" id="potencia">^</button>
-          <button class="operador" id="porcento">%</button>
-          <button class="operador" id="dividir">/</button>
-          <button class="operador" id="vezes">*</button>
+          <button class="operador limpar" id="del">
+            <i class="fas fa-backspace"></i>
+          </button>
+          <button class="operador" id="potencia">
+            <i class="fas fa-superscript"></i>
+          </button>
+          <button class="operador" id="porcento">
+            <i class="fas fa-percentage"></i>
+          </button>
+          <button class="operador" id="dividir">
+            <i class="fas fa-divide"></i>
+          </button>
+          <button class="operador" id="vezes">
+            <i class="fas fa-times"></i>
+          </button>
           <button class="num" id="sete">7</button>
           <button class="num" id="oito">8</button>
           <button class="num" id="nove">9</button>
-          <button class="operador" id="menos">-</button>
+          <button class="operador" id="menos">
+            <i class="fas fa-minus"></i>
+          </button>
           <button class="num" id="quatro">4</button>
           <button class="num" id="cinco">5</button>
           <button class="num" id="seis">6</button>
-          <button class="operador" id="mais">+</button>
+          <button class="operador" id="mais">
+            <i class="fas fa-plus"></i>
+          </button>
           <button class="num" id="um">1</button>
           <button class="num" id="dois">2</button>
           <button class="num" id="tres">3</button>
           <button class="num" id="zero">0</button>
           <button class="num" id="ponto">.</button>
-          <button class="operador igual" id="igual">=</button>
+          <button class="operador igual" id="igual">
+            <i class="fas fa-equals"></i>
+          </button>
         </div>
       </section>
     </main>
