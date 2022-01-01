@@ -30,3 +30,20 @@ btnsOperacoes.divisao = document.getElementById("dividir");
 btnsOperacoes.porcentagem = document.getElementById("porcento");
 btnsOperacoes.potenciacao = document.getElementById("potencia");
 btnsOperacoes.radiciacao = document.getElementById("raiz");
+
+// display das operações
+const display = document.getElementById("display");
+
+// funcao para pegar conteudo do display
+const getDisplay = () => parseFloat(display.innerText);
+
+// adiciona listener para mostrar numeros apertados no display
+for (numero in btnsNumeros) {
+  btnsNumeros[numero].addEventListener("click", (e) => {
+    if (getDisplay() === 0) {
+      display.innerText = `${e.originalTarget.innerText}`;
+    } else {
+      display.innerText = `${display.innerText}${e.originalTarget.innerText}`;
+    }
+  });
+}
