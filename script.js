@@ -53,8 +53,8 @@ const getMiniDisplay = () => parseFloat(miniDisplay.innerText);
 // funcao para definir conteudo do display de operacoes
 const setMiniDisplay = (text) => (miniDisplay.innerText = `${text}`);
 
-// controla se o numero exibido deve ser considerado
-let desconsiderarDisplay = true;
+let desconsiderarDisplay = true; // controla se o display deve ser considerado
+let ultimoFoiNum = true; // controla se a ultima acao foi numero digitado
 
 // adiciona listener para mostrar numeros apertados no display
 for (numero in btnsNumeros) {
@@ -65,6 +65,7 @@ for (numero in btnsNumeros) {
       display.innerText = `${getDisplay()}${e.currentTarget.innerText}`;
     }
     desconsiderarDisplay = false;
+    ultimoFoiNum = true;
   });
 }
 
@@ -108,6 +109,7 @@ function getSimbolo(operador) {
   }
 }
 
+// funcoes de limpeza
 function limparVariaveis() {
   termo1 = null;
   termo2 = null;
@@ -136,6 +138,7 @@ function resultado() {
   const resultado = calcular(termo1, termo2, operador);
   setDisplay(resultado);
   desconsiderarDisplay = true;
+  ultimoFoiNum = true;
 
   limparVariaveis();
 }
@@ -151,12 +154,20 @@ document.getElementById("igual").addEventListener("click", () => {
 // adiciona listener de click aos botoes de operacao
 for (key in btnsOperacoes) {
   btnsOperacoes[key].addEventListener("click", (e) => {
-    termo1 === null ? (termo1 = getDisplay()) : (termo2 = getDisplay());
+    if (termo1 !== null) {
+      termo2 = getDisplay();
+      resultado();
+    }
+
     operador = e.currentTarget.id;
-    setMiniDisplay(`${getDisplay()} ${getSimbolo(operador)}`);
+
+    termo1 = getDisplay();
+    setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
     setDisplay("0");
     if (operador === "porcento" || operador === "raiz") {
       resultado();
     }
+
+    ultimoFoiNum = false;
   });
 }
