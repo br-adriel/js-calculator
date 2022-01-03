@@ -108,6 +108,17 @@ function getSimbolo(operador) {
   }
 }
 
+function limparVariaveis() {
+  termo1 = null;
+  termo2 = null;
+  operador = null;
+}
+
+function limparDisplays() {
+  setDisplay("0");
+  setMiniDisplay("");
+}
+
 // implementa o resultado da operacao
 function resultado() {
   // exibe resultado no display
@@ -120,10 +131,7 @@ function resultado() {
   setDisplay(resultado);
   desconsiderarDisplay = true;
 
-  // limpa variaveis
-  termo1 = null;
-  termo2 = null;
-  operador = null;
+  limparVariaveis();
 }
 
 // adiciona listener de click aos botoes de operacao
