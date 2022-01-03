@@ -142,8 +142,10 @@ function resultado() {
 
 // botao igual
 document.getElementById("igual").addEventListener("click", () => {
-  termo2 = getDisplay();
-  resultado();
+  if (termo1 !== null) {
+    termo2 = getDisplay();
+    resultado();
+  }
 });
 
 // adiciona listener de click aos botoes de operacao
