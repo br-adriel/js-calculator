@@ -154,20 +154,24 @@ document.getElementById("igual").addEventListener("click", () => {
 // adiciona listener de click aos botoes de operacao
 for (key in btnsOperacoes) {
   btnsOperacoes[key].addEventListener("click", (e) => {
-    if (termo1 !== null) {
-      termo2 = getDisplay();
-      resultado();
+    if (!ultimoFoiNum) {
+      operador = e.currentTarget.id;
+      setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
+    } else {
+      if (termo1 !== null) {
+        termo2 = getDisplay();
+        resultado();
+      }
+
+      operador = e.currentTarget.id;
+
+      termo1 = getDisplay();
+      setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
+      setDisplay("0");
+      if (operador === "porcento" || operador === "raiz") {
+        resultado();
+      }
     }
-
-    operador = e.currentTarget.id;
-
-    termo1 = getDisplay();
-    setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
-    setDisplay("0");
-    if (operador === "porcento" || operador === "raiz") {
-      resultado();
-    }
-
     ultimoFoiNum = false;
   });
 }
