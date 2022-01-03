@@ -143,6 +143,7 @@ document.getElementById("limpar").addEventListener("click", () => {
   limparVariaveis();
   limparDisplays();
   podeUsarPonto = true;
+  ultimoFoiNum = true;
 });
 
 // implementa o resultado da operacao
