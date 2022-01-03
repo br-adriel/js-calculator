@@ -1,4 +1,8 @@
 // funcoes de operacao
+let termo1 = null;
+let termo2 = null;
+let operador = null;
+
 const somar = (a, b) => a + b;
 const subtrair = (a, b) => a - b;
 const multiplicar = (a, b) => a * b;
@@ -37,6 +41,9 @@ const display = document.getElementById("display");
 // funcao para pegar conteudo do display
 const getDisplay = () => parseFloat(display.innerText);
 
+// funcao para definir conteudo do display
+const setDisplay = (text) => (display.innerText = `${text}`);
+
 // adiciona listener para mostrar numeros apertados no display
 for (numero in btnsNumeros) {
   btnsNumeros[numero].addEventListener("click", (e) => {
@@ -66,4 +73,16 @@ function calcular(a, b, operador) {
     case "raiz":
       return a ** 0.5;
   }
+}
+
+// adiciona listener de click aos botoes de operacao
+for (key in btnsOperacoes) {
+  btnsOperacoes[key].addEventListener("click", (e) => {
+    termo1 === null ? (termo1 = getDisplay()) : (termo2 = getDisplay());
+    operador = e.currentTarget.id;
+    setDisplay("0");
+    if (operador === "porcento" || operador === "raiz") {
+      // chamar operacao de igualdade
+    }
+  });
 }
