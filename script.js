@@ -47,3 +47,23 @@ for (numero in btnsNumeros) {
     }
   });
 }
+
+// funcao para realizar operacao
+function calcular(a, b, operador) {
+  switch (operador) {
+    case "mais":
+      return a + b;
+    case "menos":
+      return a - b;
+    case "vezes":
+      return a * b;
+    case "dividir":
+      return b === 0 ? "ERROR" : a / b;
+    case "porcento":
+      return a / 100;
+    case "potencia":
+      return a ** b;
+    case "raiz":
+      return a ** 0.5;
+  }
+}
