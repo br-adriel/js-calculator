@@ -198,6 +198,8 @@ for (key in btnsOperacoes) {
       setDisplay("0");
       if (operador === "porcento" || operador === "raiz") {
         resultado();
+        ultimoFoiNum = true;
+        return;
       }
     }
     ultimoFoiNum = false;
