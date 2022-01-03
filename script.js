@@ -140,6 +140,12 @@ function resultado() {
   limparVariaveis();
 }
 
+// botao igual
+document.getElementById("igual").addEventListener("click", () => {
+  termo2 = getDisplay();
+  resultado();
+});
+
 // adiciona listener de click aos botoes de operacao
 for (key in btnsOperacoes) {
   btnsOperacoes[key].addEventListener("click", (e) => {
