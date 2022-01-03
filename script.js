@@ -23,7 +23,6 @@ btnsNumeros["6"] = document.getElementById("seis");
 btnsNumeros["7"] = document.getElementById("sete");
 btnsNumeros["8"] = document.getElementById("oito");
 btnsNumeros["9"] = document.getElementById("nove");
-btnsNumeros["ponto"] = document.getElementById("ponto");
 
 // botoes de operacao
 const btnsOperacoes = {};
@@ -38,8 +37,9 @@ btnsOperacoes.radiciacao = document.getElementById("raiz");
 // display do input do usuario
 const display = document.getElementById("display");
 
-// funcao para pegar conteudo do display de input
-const getDisplay = () => parseFloat(display.innerText);
+// funcoes para pegar conteudo do display de input
+const getDisplay = () => display.innerText;
+const getDisplayFloat = () => parseFloat(display.innerText);
 
 // funcao para definir conteudo do display do input
 const setDisplay = (text) => (display.innerText = `${text}`);
@@ -55,14 +55,23 @@ const setMiniDisplay = (text) => (miniDisplay.innerText = `${text}`);
 
 let desconsiderarDisplay = true; // controla se o display deve ser considerado
 let ultimoFoiNum = true; // controla se a ultima acao foi numero digitado
+let podeUsarPonto = true; // controla o uso do ponto;
+
+const btnPonto = document.getElementById("ponto");
+btnPonto.addEventListener("click", (e) => {
+  if (podeUsarPonto) {
+    setDisplay(`${getDisplay()}.`);
+  }
+  podeUsarPonto = false;
+});
 
 // adiciona listener para mostrar numeros apertados no display
 for (numero in btnsNumeros) {
   btnsNumeros[numero].addEventListener("click", (e) => {
-    if (desconsiderarDisplay || getDisplay() === 0) {
-      display.innerText = `${e.currentTarget.innerText}`;
+    if (desconsiderarDisplay || getDisplay() === "0") {
+      setDisplay(`${e.currentTarget.innerText}`);
     } else {
-      display.innerText = `${getDisplay()}${e.currentTarget.innerText}`;
+      setDisplay(`${getDisplay()}${e.currentTarget.innerText}`);
     }
     desconsiderarDisplay = false;
     ultimoFoiNum = true;
@@ -125,6 +134,7 @@ function limparDisplays() {
 document.getElementById("limpar").addEventListener("click", () => {
   limparVariaveis();
   limparDisplays();
+  podeUsarPonto = true;
 });
 
 // implementa o resultado da operacao
@@ -136,9 +146,18 @@ function resultado() {
     setMiniDisplay(`${termo1} ${getSimbolo(operador)} ${termo2} =`);
   }
   const resultado = calcular(termo1, termo2, operador);
+
   setDisplay(resultado);
   desconsiderarDisplay = true;
   ultimoFoiNum = true;
+
+  // verifica se pode usar ponto no resultado
+  let arrResultado = getDisplay().split(".");
+  if (arrResultado.length === 1) {
+    podeUsarPonto = true;
+  } else {
+    podeUsarPonto = false;
+  }
 
   limparVariaveis();
 }
@@ -146,7 +165,7 @@ function resultado() {
 // botao igual
 document.getElementById("igual").addEventListener("click", () => {
   if (termo1 !== null) {
-    termo2 = getDisplay();
+    termo2 = getDisplayFloat();
     resultado();
   }
 });
@@ -159,13 +178,13 @@ for (key in btnsOperacoes) {
       setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
     } else {
       if (termo1 !== null) {
-        termo2 = getDisplay();
+        termo2 = getDisplayFloat();
         resultado();
       }
 
       operador = e.currentTarget.id;
 
-      termo1 = getDisplay();
+      termo1 = getDisplayFloat();
       setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
       setDisplay("0");
       if (operador === "porcento" || operador === "raiz") {
@@ -173,5 +192,6 @@ for (key in btnsOperacoes) {
       }
     }
     ultimoFoiNum = false;
+    podeUsarPonto = true;
   });
 }
