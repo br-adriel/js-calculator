@@ -119,6 +119,12 @@ function limparDisplays() {
   setMiniDisplay("");
 }
 
+// botao limpar
+document.getElementById("limpar").addEventListener("click", () => {
+  limparVariaveis();
+  limparDisplays();
+});
+
 // implementa o resultado da operacao
 function resultado() {
   // exibe resultado no display
