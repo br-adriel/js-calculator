@@ -84,6 +84,7 @@ function calcular(a, b, operador) {
   }
 }
 
+// retorna simbolo do operador
 function getSimbolo(operador) {
   switch (operador) {
     case "mais":
@@ -103,6 +104,22 @@ function getSimbolo(operador) {
   }
 }
 
+// implementa o resultado da operacao
+function resultado() {
+  // exibe resultado no display
+  if (termo2 == null) {
+    setMiniDisplay(`${termo1} ${getSimbolo(operador)} =`);
+  } else {
+    setMiniDisplay(`${termo1} ${getSimbolo(operador)} ${termo2} =`);
+  }
+  const resultado = calcular(termo1, termo2, operador);
+  setDisplay(resultado);
+  // limpa variaveis
+  termo1 = null;
+  termo2 = null;
+  operador = null;
+}
+
 // adiciona listener de click aos botoes de operacao
 for (key in btnsOperacoes) {
   btnsOperacoes[key].addEventListener("click", (e) => {
@@ -111,7 +128,7 @@ for (key in btnsOperacoes) {
     setMiniDisplay(`${getDisplay()} ${getSimbolo(operador)}`);
     setDisplay("0");
     if (operador === "porcento" || operador === "raiz") {
-      // chamar operacao de igualdade
+      resultado();
     }
   });
 }
