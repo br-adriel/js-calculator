@@ -64,13 +64,22 @@ main {
   background: var(--fundo);
 }
 
+.mini-display {
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
+}
+
 .display {
   background: #fff;
-  padding: 1rem;
   font-size: 2.2rem;
-  text-align: right;
   border-radius: 0.5rem;
   word-wrap: break-word;
+  padding: 1rem;
+}
+
+.mini-display,
+.display {
+  text-align: right;
 }
 
 .botoes {
