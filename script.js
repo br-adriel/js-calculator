@@ -78,6 +78,14 @@ for (numero in btnsNumeros) {
   });
 }
 
+// botao apagar
+document.getElementById("del").addEventListener("click", () => {
+  const arrDisplay = getDisplay().split("");
+  const itemApagado = arrDisplay.pop();
+  itemApagado === "." ? (podeUsarPonto = true) : null;
+  arrDisplay.length === 0 ? setDisplay("0") : setDisplay(arrDisplay.join(""));
+});
+
 // funcao para realizar operacao
 function calcular(a, b, operador) {
   switch (operador) {
