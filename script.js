@@ -53,14 +53,18 @@ const getMiniDisplay = () => parseFloat(miniDisplay.innerText);
 // funcao para definir conteudo do display de operacoes
 const setMiniDisplay = (text) => (miniDisplay.innerText = `${text}`);
 
+// controla se o numero exibido deve ser considerado
+let desconsiderarDisplay = true;
+
 // adiciona listener para mostrar numeros apertados no display
 for (numero in btnsNumeros) {
   btnsNumeros[numero].addEventListener("click", (e) => {
-    if (getDisplay() === 0) {
-      display.innerText = `${e.originalTarget.innerText}`;
+    if (desconsiderarDisplay || getDisplay() === 0) {
+      display.innerText = `${e.currentTarget.innerText}`;
     } else {
-      display.innerText = `${display.innerText}${e.originalTarget.innerText}`;
+      display.innerText = `${getDisplay()}${e.currentTarget.innerText}`;
     }
+    desconsiderarDisplay = false;
   });
 }
 
@@ -114,6 +118,8 @@ function resultado() {
   }
   const resultado = calcular(termo1, termo2, operador);
   setDisplay(resultado);
+  desconsiderarDisplay = true;
+
   // limpa variaveis
   termo1 = null;
   termo2 = null;
