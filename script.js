@@ -57,34 +57,43 @@ let desconsiderarDisplay = true; // controla se o display deve ser considerado
 let ultimoFoiNum = true; // controla se a ultima acao foi numero digitado
 let podeUsarPonto = true; // controla o uso do ponto;
 
-const btnPonto = document.getElementById("ponto");
-btnPonto.addEventListener("click", (e) => {
+function botaoPonto() {
   if (podeUsarPonto) {
     setDisplay(`${getDisplay()}.`);
+    desconsiderarDisplay = false;
   }
   podeUsarPonto = false;
-});
+}
+
+const btnPonto = document.getElementById("ponto");
+btnPonto.addEventListener("click", botaoPonto);
 
 // adiciona listener para mostrar numeros apertados no display
+function numListener(numero) {
+  if (desconsiderarDisplay || getDisplay() === "0") {
+    setDisplay(`${numero}`);
+  } else {
+    setDisplay(`${getDisplay()}${numero}`);
+  }
+  desconsiderarDisplay = false;
+  ultimoFoiNum = true;
+}
+
 for (numero in btnsNumeros) {
   btnsNumeros[numero].addEventListener("click", (e) => {
-    if (desconsiderarDisplay || getDisplay() === "0") {
-      setDisplay(`${e.currentTarget.innerText}`);
-    } else {
-      setDisplay(`${getDisplay()}${e.currentTarget.innerText}`);
-    }
-    desconsiderarDisplay = false;
-    ultimoFoiNum = true;
+    numListener(e.currentTarget.innerText);
   });
 }
 
 // botao apagar
-document.getElementById("del").addEventListener("click", () => {
+function botaoApagar() {
   const arrDisplay = getDisplay().split("");
   const itemApagado = arrDisplay.pop();
   itemApagado === "." ? (podeUsarPonto = true) : null;
   arrDisplay.length === 0 ? setDisplay("0") : setDisplay(arrDisplay.join(""));
-});
+}
+
+document.getElementById("del").addEventListener("click", botaoApagar);
 
 // funcao para realizar operacao
 function calcular(a, b, operador) {
@@ -139,11 +148,15 @@ function limparDisplays() {
 }
 
 // botao limpar
-document.getElementById("limpar").addEventListener("click", () => {
+function botaoLimpar() {
   limparVariaveis();
   limparDisplays();
   podeUsarPonto = true;
   ultimoFoiNum = true;
+}
+
+document.getElementById("limpar").addEventListener("click", () => {
+  botaoLimpar();
 });
 
 // implementa o resultado da operacao
@@ -172,37 +185,104 @@ function resultado() {
 }
 
 // botao igual
-document.getElementById("igual").addEventListener("click", () => {
+function botaoIgual() {
   if (termo1 !== null) {
     termo2 = getDisplayFloat();
     resultado();
   }
-});
+}
+
+document.getElementById("igual").addEventListener("click", botaoIgual);
 
 // adiciona listener de click aos botoes de operacao
-for (key in btnsOperacoes) {
-  btnsOperacoes[key].addEventListener("click", (e) => {
-    if (!ultimoFoiNum) {
-      operador = e.currentTarget.id;
-      setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
-    } else {
-      if (termo1 !== null) {
-        termo2 = getDisplayFloat();
-        resultado();
-      }
-
-      operador = e.currentTarget.id;
-
-      termo1 = getDisplayFloat();
-      setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
-      setDisplay("0");
-      if (operador === "porcento" || operador === "raiz") {
-        resultado();
-        ultimoFoiNum = true;
-        return;
-      }
+function operadorListener(nomeOperador) {
+  if (!ultimoFoiNum) {
+    operador = nomeOperador;
+    setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
+  } else {
+    if (termo1 !== null) {
+      termo2 = getDisplayFloat();
+      resultado();
     }
-    ultimoFoiNum = false;
-    podeUsarPonto = true;
-  });
+
+    operador = nomeOperador;
+
+    termo1 = getDisplayFloat();
+    setMiniDisplay(`${termo1} ${getSimbolo(operador)}`);
+    setDisplay("0");
+    if (operador === "porcento" || operador === "raiz") {
+      resultado();
+      ultimoFoiNum = true;
+      return;
+    }
+  }
+  ultimoFoiNum = false;
+  podeUsarPonto = true;
 }
+
+for (key in btnsOperacoes) {
+  btnsOperacoes[key].addEventListener("click", (e) =>
+    operadorListener(e.currentTarget.id)
+  );
+}
+
+// adiciona listener ao teclado
+window.addEventListener("keydown", (e) => {
+  switch (e.key) {
+    // numeros
+    case "0":
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+      numListener(e.key);
+      break;
+    // botao igual
+    case "=":
+    case "Enter":
+      botaoIgual();
+      break;
+    // botao limpar
+    case "C":
+    case "c":
+      botaoLimpar();
+      break;
+    // botao apagar
+    case "Backspace":
+      botaoApagar();
+      break;
+    // ponto
+    case ".":
+    case ",":
+      botaoPonto();
+      break;
+    // operadores
+    case "+":
+      operadorListener("mais");
+      break;
+    case "-":
+      operadorListener("menos");
+      break;
+    case "*":
+      operadorListener("vezes");
+      break;
+    case "/":
+      operadorListener("dividir");
+      break;
+    case "%":
+      operadorListener("porcento");
+      break;
+    case "v":
+    case "V":
+      operadorListener("raiz");
+      break;
+    case "^":
+      operadorListener("potencia");
+      break;
+  }
+});
