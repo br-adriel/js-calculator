@@ -52,12 +52,13 @@ main {
   align-items: center;
   margin-top: 2rem;
   width: 100%;
+  max-width: 1280px;
 }
 
 .calculator {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 95%;
   padding: 1rem;
   border-radius: 0.5rem;
   gap: 0.5rem;
@@ -176,4 +177,22 @@ footer a {
 
 footer a:hover {
   color: #222;
+}
+
+@media (min-width: 600px) {
+  .calculator {
+    width: 60%;
+  }
+}
+
+@media (min-width: 900px) {
+  .calculator {
+    width: 35%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .calculator {
+    width: 30%;
+  }
 }
