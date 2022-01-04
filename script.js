@@ -286,3 +286,8 @@ window.addEventListener("keydown", (e) => {
       break;
   }
 });
+
+// define texto do footer dinamicamente
+document.querySelector(
+  "footer p"
+).innerText = `Adriel Faria, ${new Date().getFullYear()}`;
