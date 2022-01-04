@@ -39,7 +39,9 @@ const display = document.getElementById("display");
 
 // funcoes para pegar conteudo do display de input
 const getDisplay = () => display.innerText;
-const getDisplayFloat = () => parseFloat(display.innerText);
+const getDisplayFloat = () => {
+  return display.innerText === "ERROR" ? 0 : parseFloat(display.innerText);
+};
 
 // funcao para definir conteudo do display do input
 const setDisplay = (text) => (display.innerText = `${text}`);
